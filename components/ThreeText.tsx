@@ -25,12 +25,7 @@ const ThreeText: FC<ThingProps> = (props) => {
         {/* <Text position={[0, 1, 0]} font="/Roboto-Black.ttf" fontSize={2} color={'#222222'}>
           HELLO
         </Text> */}
-        <Text
-          position={[0, 0, 3]}
-          font='/Roboto-Black.ttf'
-          fontSize={1}
-          color={hovered ? 'hotpink' : 'orange'}
-        >
+        <Text position={[0, 0, 3]} fontSize={1} color={hovered ? 'hotpink' : 'orange'}>
           WORLD
         </Text>
       </mesh>

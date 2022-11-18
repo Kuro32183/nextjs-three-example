@@ -1,24 +1,16 @@
 /* eslint-disable react/display-name */
-import * as Drei from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import React from 'react'
-import { Vector3 } from 'three'
-import ThreeText from './ThreeText'
+import dynamic from 'next/dynamic'
+import React, { useState, useRef, FC } from 'react'
+import { Vector3, Mesh } from 'three'
+// import ThreeText from './ThreeText'
+
+const Model = dynamic(() => import('./ThreeModel'))
 
 const Rig = ({ v = new Vector3() }) => {
   return useFrame((state) => {
     state.camera.position.lerp(v.set(state.mouse.x / 2, state.mouse.y / 2, 10), 0.05)
   })
-}
-
-const Model: React.FC = () => {
-  const { scene } = Drei.useGLTF('/assets/Rocket.glb')
-
-  return (
-    <group dispose={null}>
-      <primitive scale={[1, 1, 1]} object={scene} />
-    </group>
-  )
 }
 
 // const Thing: FC<ThingProps> = (props) => {
@@ -54,13 +46,15 @@ const ThreeIcon: React.FC = React.memo(() => {
       <Canvas>
         <ambientLight />
         <Rig />
-        <fog attach='fog' color={'#fff'} near={1} far={20} />
+        <fog attach='fog' color={'#fff'} near={1} far={30} />
         <pointLight position={[10, 10, 10]} />
         {/* <Thing position={[0, 1, -10]} />
         <Thing position={[-1.2, 0, 0]} />
         <Thing position={[1.2, 0, 0]} /> */}
-        <ThreeText position={[0, 0, 3]} />
-        <Model />
+
+        <Model position={[0, 0, 0]} />
+
+        {/* <ThreeText position={[0, 0, 3]} /> */}
       </Canvas>
     </div>
   )
