@@ -1,8 +1,9 @@
 /* eslint-disable react/display-name */
+import { PresentationControls, Environment, ContactShadows, Html } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
 import dynamic from 'next/dynamic'
-import React, { useState, useRef, FC } from 'react'
-import { Vector3, Mesh } from 'three'
+import React from 'react'
+import { Vector3 } from 'three'
 // import ThreeText from './ThreeText'
 
 const Model = dynamic(() => import('./ThreeModel'))
@@ -12,27 +13,6 @@ const Rig = ({ v = new Vector3() }) => {
     state.camera.position.lerp(v.set(state.mouse.x / 2, state.mouse.y / 2, 10), 0.05)
   })
 }
-
-// const Thing: FC<ThingProps> = (props) => {
-//   const mesh = useRef<Mesh>(null!)
-//   const [hovered, setHover] = useState(false)
-//   const [active, setActive] = useState(false)
-//   useFrame(() => (mesh.current.rotation.x += 0.01))
-
-//   return (
-//     <mesh
-//       {...props}
-//       ref={mesh}
-//       scale={active ? 1.5 : 1}
-//       onClick={() => setActive(!active)}
-//       onPointerOver={() => setHover(true)}
-//       onPointerOut={() => setHover(false)}
-//     >
-//       <boxGeometry args={[1, 1, 1]} />
-//       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-//     </mesh>
-//   )
-// }
 
 const ThreeIcon: React.FC = React.memo(() => {
   return (
@@ -48,11 +28,18 @@ const ThreeIcon: React.FC = React.memo(() => {
         <Rig />
         <fog attach='fog' color={'#fff'} near={1} far={30} />
         <pointLight position={[10, 10, 10]} />
-        {/* <Thing position={[0, 1, -10]} />
-        <Thing position={[-1.2, 0, 0]} />
-        <Thing position={[1.2, 0, 0]} /> */}
-
-        <Model position={[0, 0, 0]} />
+        <PresentationControls
+          global
+          config={{ mass: 2, tension: 500 }}
+          //   snap={{ mass: 4, tension: 200 }}
+          // rotation={[0, 0.3, 0]}
+          polar={[-Math.PI / 3, Math.PI / 3]}
+          azimuth={[-Math.PI / 1.4, Math.PI / 2]}
+        >
+          <Model position={[0, 0, 0]} />
+        </PresentationControls>
+        {/* <ContactShadows position={[0, -1.4, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
+        <Environment preset='city' /> */}
 
         {/* <ThreeText position={[0, 0, 3]} /> */}
       </Canvas>

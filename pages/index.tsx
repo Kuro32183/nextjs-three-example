@@ -11,6 +11,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <ThreeIcon />
+        <div className={styles.main}></div>
       </main>
     </div>
   )
